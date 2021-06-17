@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[System.Serializable]
 public class SQL_Connection : MonoBehaviour
 {
-    public void CallRegister(string username)
+
+    [SerializeField] TextMeshProUGUI username = null;
+    [SerializeField] TextMeshProUGUI password = null;
+
+    public void CallRegister()
     {
-        StartCoroutine(Register(username));
+        StartCoroutine(Register());
     }
 
-    IEnumerator Register(string username)
+    IEnumerator Register()
     {
         WWWForm form = new WWWForm();
-        form.AddField("username", username);
+        form.AddField("username", username.text);
+        form.AddField("password", password.text);
 
         UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/register.php", form);
 
         yield return www.SendWebRequest();
+
 
         Debug.Log(www.isDone);
     }
