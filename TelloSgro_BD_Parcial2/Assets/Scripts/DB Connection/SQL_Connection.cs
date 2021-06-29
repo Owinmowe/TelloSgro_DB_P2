@@ -21,11 +21,13 @@ public class SQL_Connection : MonoBehaviour
         form.AddField("username", username.text);
         form.AddField("password", password.text);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/register.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/send.php", form);
 
         yield return www.SendWebRequest();
+        
+        if (www.result == UnityWebRequest.Result.Success)
+            Debug.Log("User: " + username.text + " - Pass: " + password.text + ". Successfully Sent!");
 
-
-        Debug.Log(www.isDone);
     }
+
 }
