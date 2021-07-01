@@ -52,4 +52,30 @@ static public class SQL_Connection
             errorText.text = "Can't sign up current username/password.";
         }
     }
+
+    public static IEnumerator SendScoreRegister()
+    {
+        SessionData currentSessionData = LoaderManager.Get().GetSessionData();
+
+        WWWForm form = new WWWForm();
+        form.AddField("username", currentSessionData.username);
+        form.AddField("score", currentSessionData.score);
+        form.AddField("deaths", currentSessionData.deaths);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/Score Insert.php", form);
+
+        yield return www.SendWebRequest();
+    }
+
+    public static IEnumerator RankingRegister(string handlerText)
+    {
+        WWWForm form = new WWWForm();
+
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/Score Ranking.php", form);
+
+        yield return www.SendWebRequest();
+
+        handlerText = www.downloadHandler.text;
+    }
+
 }
