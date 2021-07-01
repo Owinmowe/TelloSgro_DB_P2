@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -33,12 +33,15 @@ public class UI_EndScene : MonoBehaviour
         rankingData = new List<SessionData>();
         var newString = scoreText;
         var HighScoreStringArray = newString.Split('_');
-        for (int i = 0; i < HighScoreStringArray.Length; i++)
+        Debug.Log(HighScoreStringArray.Length.ToString());
+        for (int i = 0; i < HighScoreStringArray.Length-1; i++)
         {
             var scoreComponent = HighScoreStringArray[i].Split('-');
-            rankingData[i].username = HighScoreStringArray[0];
-            rankingData[i].deaths = int.Parse(HighScoreStringArray[1]);
-            rankingData[i].score = int.Parse(HighScoreStringArray[2]);
+            rankingData.Add(new SessionData());
+            rankingData[i].username = scoreComponent[0];
+            
+            rankingData[i].deaths = Convert.ToInt32(scoreComponent[1]);
+            rankingData[i].score = Convert.ToInt32(scoreComponent[2]);
         }
 
         for (int i = 0; i < rankingData.Count; i++)
