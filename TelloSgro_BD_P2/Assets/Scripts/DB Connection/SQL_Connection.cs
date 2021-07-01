@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine;
@@ -5,6 +6,8 @@ using TMPro;
 
 static public class SQL_Connection
 {
+
+    static public Action OnLastRequestEnded;
 
     static string handlerText = "";
 
@@ -24,6 +27,7 @@ static public class SQL_Connection
         {
             errorText.color = Color.green;
             errorText.text = "Logged In. Have Fun!";
+            LoaderManager.Get().SetSessionData(username, 0, 0);
             LoaderManager.Get().LoadSceneAsync("Main Game");
         }
         else
@@ -33,6 +37,7 @@ static public class SQL_Connection
         }
 
         handlerText = www.downloadHandler.text;
+        OnLastRequestEnded?.Invoke();
     }
 
     public static IEnumerator SignUpRegister(string username, string password, TextMeshProUGUI errorText)
@@ -58,6 +63,7 @@ static public class SQL_Connection
         }
 
         handlerText = www.downloadHandler.text;
+        OnLastRequestEnded?.Invoke();
     }
 
     public static IEnumerator SendScoreRegister()
@@ -74,6 +80,7 @@ static public class SQL_Connection
         yield return www.SendWebRequest();
 
         handlerText = www.downloadHandler.text;
+        OnLastRequestEnded?.Invoke();
     }
 
     public static IEnumerator RankingRegister()
@@ -85,6 +92,7 @@ static public class SQL_Connection
         yield return www.SendWebRequest();
 
         handlerText = www.downloadHandler.text;
+        OnLastRequestEnded?.Invoke();
     }
 
 }
