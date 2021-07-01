@@ -10,8 +10,8 @@ public class UI_EndScene : MonoBehaviour
 
     private void Awake()
     {
-        SQL_Connection.SendScoreRegister();
-        SQL_Connection.RankingRegister();
+        StartCoroutine(SQL_Connection.SendScoreRegister());
+        StartCoroutine(SQL_Connection.RankingRegister());
         handlerText = SQL_Connection.GetHandlerText();
         Debug.Log(handlerText);
     }

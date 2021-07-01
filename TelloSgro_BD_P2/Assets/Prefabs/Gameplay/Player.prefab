@@ -134,7 +134,8 @@ MonoBehaviour:
   maxLife: 3
   invulnerabilityAfterHit: 1
   invulnerabilityTime: 3
-  timeToDestroy: 2
+  destroyOnDeath: 0
+  timeToDestroyOrReset: 2
 --- !u!114 &919132148336395594
 MonoBehaviour:
   m_ObjectHideFlags: 0

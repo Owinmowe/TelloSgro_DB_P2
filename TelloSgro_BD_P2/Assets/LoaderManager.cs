@@ -18,7 +18,7 @@ public class LoaderManager : MonoBehaviour
 
     private static LoaderManager instance = null;
 
-    SessionData currentSessionData = null;
+    SessionData currentSessionData = new SessionData();
 
     static public LoaderManager Get()
     {

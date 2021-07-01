@@ -38,6 +38,8 @@ public class GameplayManager : MonoBehaviour
 
     private void Start()
     {
+        currentTimeBetweenEnemies = timeBetweenEnemies;
+        CreateEnemy();
         StartCoroutine(EnemyWaves());
     }
 
@@ -49,8 +51,6 @@ public class GameplayManager : MonoBehaviour
 
     IEnumerator EnemyWaves()
     {
-        currentTimeBetweenEnemies = timeBetweenEnemies;
-        CreateEnemy();
         while(currentTime < gameTime)
         {
             yield return new WaitForSeconds(currentTimeBetweenEnemies);
@@ -58,6 +58,7 @@ public class GameplayManager : MonoBehaviour
             CreateEnemy();
         }
         LoaderManager.Get().SetSessionData(LoaderManager.Get().GetSessionData().username, savedScore, deaths);
+        LoaderManager.Get().LoadSceneAsync("End Scene");
     }
 
     private void CreatePlayer()
@@ -66,6 +67,7 @@ public class GameplayManager : MonoBehaviour
         playerShape = playerGo.GetComponent<Shape>();
         playerShape.OnTakeDamage += PlayerRecievedDamage;
         playerShape.OnDestroy += PlayerDied;
+        playerShape.OnReset += ContinueCoroutineEnemyWaves;
     }
 
     private void CreateEnemy()
@@ -92,13 +94,26 @@ public class GameplayManager : MonoBehaviour
 
     void PlayerDied()
     {
+        StopAllCoroutines();
+        CameraController.instance.StrongShakeCamera();
         deaths++;
         unSavedScore /= 2;
+        OnPlayerGotPoints?.Invoke(unSavedScore);
         foreach (var item in enemiesControllers)
         {
             item.StopFollowing();
         }
         OnPlayerDeath?.Invoke(deaths);
+        playerShape.Reset();
+    }
+
+    void ContinueCoroutineEnemyWaves()
+    {
+        foreach (var item in enemiesControllers)
+        {
+            item.SetTarget(playerShape.transform);
+        }
+        StartCoroutine(EnemyWaves());
     }
 
     void AddScore(int score)

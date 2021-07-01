@@ -34,6 +34,11 @@ public class CameraController : MonoBehaviour
         StartCoroutine(Shake(shakeDuration, shakeStrenght));
     }
 
+    public void StrongShakeCamera()
+    {
+        StartCoroutine(StrongShake(shakeDuration, shakeStrenght));
+    }
+
     IEnumerator Shake(float duration, float strenght)
     {
         float currentShakeTime = 0;
@@ -42,6 +47,20 @@ public class CameraController : MonoBehaviour
             currentShakeTime += Time.deltaTime;
             float x = Random.Range(startingLocation.x - strenght / 2, startingLocation.x + strenght / 2);
             float y = Random.Range(startingLocation.y - strenght / 2, startingLocation.y + strenght / 2);
+            transform.position = new Vector3(x, y, startingLocation.z);
+            yield return null;
+        }
+        transform.position = startingLocation;
+    }
+
+    IEnumerator StrongShake(float duration, float strenght)
+    {
+        float currentShakeTime = 0;
+        while (currentShakeTime < duration * 2)
+        {
+            currentShakeTime += Time.deltaTime;
+            float x = Random.Range(startingLocation.x - strenght, startingLocation.x + strenght);
+            float y = Random.Range(startingLocation.y - strenght, startingLocation.y + strenght);
             transform.position = new Vector3(x, y, startingLocation.z);
             yield return null;
         }

@@ -15,10 +15,12 @@ public class Shape : MonoBehaviour, Idamageable
     [SerializeField] int maxLife = 3;
     [SerializeField] bool invulnerabilityAfterHit = false;
     [SerializeField] float invulnerabilityTime = 3f;
-    [SerializeField] float timeToDestroy = 2f;
+    [SerializeField] bool destroyOnDeath = true;
+    [SerializeField] float timeToDestroyOrReset = 2f;
     bool invulnerable = false;
     int currentLife = 0;
 
+    public Action OnReset;
     public Action OnTakeDamage;
     public Action OnDestroy;
 
@@ -29,6 +31,8 @@ public class Shape : MonoBehaviour, Idamageable
 
     bool alive = true;
 
+    Vector3 startingPosition = Vector3.zero;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -37,6 +41,11 @@ public class Shape : MonoBehaviour, Idamageable
         nav = GetComponent<NavMeshAgent>();
         nav.speed = movementSpeed;
         currentLife = maxLife;
+    }
+
+    private void Start()
+    {
+        startingPosition = transform.position;
     }
 
     public void Move(Vector3 dir)
@@ -51,6 +60,23 @@ public class Shape : MonoBehaviour, Idamageable
         transform.forward = dir;
     }
 
+    public void Reset()
+    {
+        StartCoroutine(ResetCoroutine());
+    }
+
+    IEnumerator ResetCoroutine()
+    {
+        yield return new WaitForSeconds(timeToDestroyOrReset);
+        transform.position = startingPosition;
+        alive = true;
+        col.enabled = true;
+        nav.SetDestination(transform.position);
+        currentLife = maxLife;
+        anim.SetTrigger("Revive");
+        OnReset?.Invoke();
+    }
+
     public void TakeDamage()
     {
         if (invulnerable) return;
@@ -59,10 +85,9 @@ public class Shape : MonoBehaviour, Idamageable
         if (currentLife <= 0)
         {
             OnDestroy?.Invoke();
-            Destroy(gameObject, timeToDestroy);
+            if(destroyOnDeath) Destroy(gameObject, timeToDestroyOrReset);
             col.enabled = false;
             alive = false;
-            nav.enabled = false;
         }
         else
         {
@@ -78,7 +103,7 @@ public class Shape : MonoBehaviour, Idamageable
         invulnerable = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (invulnerable) return;
         Idamageable damageable = collision.collider.GetComponent<Idamageable>();

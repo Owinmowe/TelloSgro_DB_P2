@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
     public void SetTarget(Transform t)
     {
         target = t;
+        following = true;
     }
 
     void OnDeath()
