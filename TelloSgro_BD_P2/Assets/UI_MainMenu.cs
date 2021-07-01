@@ -11,6 +11,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] List<UI_Component> mainMenu_HUD = null;
 
     [Header("Log In/Sign Up")]
+    [SerializeField] float LoginCheckTime = 5f;
     [SerializeField] List<UI_Component> LogIn_HUD = null;
     [SerializeField] TextMeshProUGUI usernameText = null;
     [SerializeField] TextMeshProUGUI passwordText = null;
@@ -52,6 +53,21 @@ public class UI_MainMenu : MonoBehaviour
     public void CallLoginRegister()
     {
         StartCoroutine(SQL_Connection.LoginRegister(usernameText.text, passwordText.text, errorText));
+        StartCoroutine(CheckCorrectLogin());
+    }
+
+    IEnumerator CheckCorrectLogin()
+    {
+        float t = LoginCheckTime;
+        while (!SQL_Connection.IsLoginCorrect() && t > 0)
+        {
+            t -= Time.deltaTime;
+            yield return null;
+        }
+        if (SQL_Connection.IsLoginCorrect())
+        {
+            LoaderManager.Get().LoadSceneAsync("Main Game");
+        }
     }
 
     public void CallSignUpRegister()
