@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 01, 2021 at 01:46 AM
+-- Generation Time: Jul 01, 2021 at 06:56 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -35,14 +35,6 @@ CREATE TABLE `score` (
   `score_death` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `score`
---
-
-INSERT INTO `score` (`score_ID`, `score_name`, `score_points`, `score_death`) VALUES
-(4, 1, 9999, 0),
-(5, 3, 100, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -60,12 +52,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_ID`, `user_name`, `user_password`) VALUES
-(1, 'admin', '1234'),
-(2, 'adri', '1234'),
-(3, 'guido', '12345'),
-(4, 'user', 'user'),
-(8, 'adminX', '1234'),
-(9, 'Start', '1234');
+(1, 'admin', '1234');
 
 --
 -- Indexes for dumped tables
