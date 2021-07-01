@@ -2,12 +2,10 @@
 include("Functions.php");
 
 $username = $_POST["username"];
-$password = "1234";
+$password = $_POST["password"];
+
+if(is_null($username) {echo "*Username is null.";exit;}
+if(is_null($password) {echo "*Password is null.";exit;}
 
 LoadUser($username,$password);
-/*
-$username = $_POST["username"];
-$password = $_POST["password"];
-*/
-
 ?>
