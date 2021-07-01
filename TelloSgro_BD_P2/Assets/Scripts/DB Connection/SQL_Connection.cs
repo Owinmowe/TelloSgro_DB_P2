@@ -15,15 +15,15 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
 
-        if (!(www.result == UnityWebRequest.Result.Success))
-        {
-            errorText.color = Color.red;
-            errorText.text = "Can't login with current username/password.";
-        }
-        else
+        if (www.result == UnityWebRequest.Result.Success)
         {
             errorText.color = new Color(0, 0, 0, 0);
             LoaderManager.Get().LoadSceneAsync("Main Game");
+        }
+        else
+        {
+            errorText.color = Color.red;
+            errorText.text = "Can't login with current username/password.";
         }
     }
 
@@ -37,15 +37,16 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
 
-        if (!(www.result == UnityWebRequest.Result.Success))
-        {
-            errorText.color = Color.red;
-            errorText.text = "Can't sign up current username/password.";
-        }
-        else
+        if (www.result == UnityWebRequest.Result.Success)
         {
             errorText.color = Color.green;
             errorText.text = "Username created correctly.";
+
+        }
+        else
+        {
+            errorText.color = Color.red;
+            errorText.text = "Can't sign up current username/password.";
         }
     }
 }
