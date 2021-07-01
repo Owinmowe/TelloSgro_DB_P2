@@ -75,27 +75,28 @@ function GetRanking() : void
 	$con->real_query($sql); 
 		
     /* this was a select/show or describe query */
-    		$result = $con->store_result();
+    $result = $con->store_result();
 
     /* process resultset */
-    		$row = $result->fetch_all();
-    		$cont = 0;
-            foreach ($row as &$key)
-            {
-              	for ($i=0; $i < $con->field_count; $i++) 
-              	{ 
-              		echo $key[$i];
-              		if($i != 2)
-              		{
-              			echo "-";
-              		}
-              		else{
-              			echo "_";
-              		}
-            	}
-            }
+    $row = $result->fetch_all();
+    $cont = 0;
+    foreach ($row as &$key)
+    {
+      	for ($i=0; $i < $con->field_count; $i++) 
+      	{ 
+      		echo $key[$i];
+      		if($i != 2)
+      		{
+      			echo "-";
+         		}
+      		else{
+      			echo "_";
+      		}
+    	}
+    }
     /* free resultset */
-    		$result->close();
+    $result->free();
+    $result->close();
 }
 
 function GetUserID($username)
