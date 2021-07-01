@@ -18,7 +18,7 @@ public class GameplayManager : MonoBehaviour
     float currentTime = 0;
 
     Shape playerShape = null;
-    List<Shape> enemiesShapes = new List<Shape>();
+    List<EnemyController> enemiesControllers = new List<EnemyController>();
 
     int savedScore = 0;
     int unsavedScore = 0;
@@ -56,14 +56,17 @@ public class GameplayManager : MonoBehaviour
         GameObject playerGo = Instantiate(playerPrefab);
         playerShape = playerGo.GetComponent<Shape>();
         playerShape.OnTakeDamage += PlayerRecievedDamage;
+        playerShape.OnDestroy += PlayerDied;
     }
 
     private void CreateEnemy()
     {
         int randomPosIndex = Random.Range(0, enemySpawnPositions.Count);
         GameObject EnemyGo = Instantiate(enemyPrefab, enemySpawnPositions[randomPosIndex].position, Quaternion.identity, enemySpawnPositions[randomPosIndex]);
-        var enemyShape = EnemyGo.GetComponent<EnemyController>();
-        enemyShape.OnPointsGiven += AddScore;
+        var enemyController = EnemyGo.GetComponent<EnemyController>();
+        enemyController.OnPointsGiven += AddScore;
+        enemyController.SetTarget(playerShape.transform);
+        enemiesControllers.Add(enemyController);
     }
 
     void SaveScore()
@@ -74,6 +77,15 @@ public class GameplayManager : MonoBehaviour
     void PlayerRecievedDamage()
     {
         CameraController.instance.ShakeCamera();
+    }
+
+    void PlayerDied()
+    {
+        StopAllCoroutines();
+        foreach (var item in enemiesControllers)
+        {
+            item.StopFollowing();
+        }
     }
 
     void AddScore(int score)

@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
 
         if(Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
         {
-            shape.Move(new Vector3(horizontal, 0, vertical));
+            shape.Move(transform.position + new Vector3(horizontal, 0, vertical));
         }
 
         Vector3 mouseDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
