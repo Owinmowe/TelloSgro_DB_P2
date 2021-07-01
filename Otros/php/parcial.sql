@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 29, 2021 at 06:59 PM
+-- Generation Time: Jul 01, 2021 at 01:46 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `score` (
   `score_ID` int(11) NOT NULL,
-  `score_name` varchar(30) NOT NULL,
+  `score_name` int(30) NOT NULL,
   `score_points` int(10) NOT NULL,
   `score_death` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,9 +40,32 @@ CREATE TABLE `score` (
 --
 
 INSERT INTO `score` (`score_ID`, `score_name`, `score_points`, `score_death`) VALUES
-(1, 'admin', 10000, 0),
-(2, 'Jhon', 540, 1),
-(3, 'Nico', 1030, 0);
+(4, 1, 9999, 0),
+(5, 3, 100, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user_ID` int(11) NOT NULL,
+  `user_name` varchar(30) NOT NULL,
+  `user_password` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_ID`, `user_name`, `user_password`) VALUES
+(1, 'admin', '1234'),
+(2, 'adri', '1234'),
+(3, 'guido', '12345'),
+(4, 'user', 'user'),
+(8, 'adminX', '1234'),
+(9, 'Start', '1234');
 
 --
 -- Indexes for dumped tables
@@ -52,7 +75,15 @@ INSERT INTO `score` (`score_ID`, `score_name`, `score_points`, `score_death`) VA
 -- Indexes for table `score`
 --
 ALTER TABLE `score`
-  ADD PRIMARY KEY (`score_ID`);
+  ADD PRIMARY KEY (`score_ID`),
+  ADD KEY `score_name` (`score_name`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_ID`),
+  ADD UNIQUE KEY `user_name` (`user_name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -62,7 +93,23 @@ ALTER TABLE `score`
 -- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
-  MODIFY `score_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `score_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `score`
+--
+ALTER TABLE `score`
+  ADD CONSTRAINT `Users_ID` FOREIGN KEY (`score_name`) REFERENCES `users` (`user_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

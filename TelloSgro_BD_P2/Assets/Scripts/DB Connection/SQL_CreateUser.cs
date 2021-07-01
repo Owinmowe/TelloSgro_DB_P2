@@ -1,14 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SQL_Login : MonoBehaviour
+public class SQL_CreateUser : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI username = null;
-    [SerializeField] TextMeshProUGUI prueba = null;
 
     public void CallRegister()
     {
@@ -20,12 +19,14 @@ public class SQL_Login : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("username", username.text);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Read.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Create.php", form);
 
         yield return www.SendWebRequest();
 
+        //if (www.result == UnityWebRequest.Result.Success)
+        //    Debug.Log("User: " + username.text + ". Successfully Sent!");
+
         Debug.Log(www.downloadHandler.text);
-        prueba.text = www.downloadHandler.text;
 
     }
 }
