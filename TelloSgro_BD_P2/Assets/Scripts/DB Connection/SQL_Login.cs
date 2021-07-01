@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SQL_Connection : MonoBehaviour
+public class SQL_Login : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI username = null;
@@ -19,11 +19,18 @@ public class SQL_Connection : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("username", username.text);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/send.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Read.php", form);
 
         yield return www.SendWebRequest();
-        
-        if (www.result == UnityWebRequest.Result.Success)
-            Debug.Log("User: " + username.text + ". Successfully Sent!");
+
+        //if (www.result == UnityWebRequest.Result.Success)
+        //    Debug.Log("User: " + username.text + ". Successfully Sent!");
+
+
+        if (www.downloadHandler.text == "1")
+        {
+            Debug.Log("SUCCESSFULLY LOGGED IN");
+        }
+
     }
 }
