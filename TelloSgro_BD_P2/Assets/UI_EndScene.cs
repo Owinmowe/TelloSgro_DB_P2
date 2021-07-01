@@ -14,8 +14,7 @@ public class UI_EndScene : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(SQL_Connection.SendScoreRegister());
-        StartCoroutine(SQL_Connection.RankingRegister());
-        SQL_Connection.OnGetRankingRequestEnded += SetHighScore;
+        SQL_Connection.OnSendScoreRequestEnded += StartGettingHighScore;
     }
 
     private void Start()
@@ -28,12 +27,17 @@ public class UI_EndScene : MonoBehaviour
         scoreText.text = currentData.username + "\n Score: " + currentData.score + " Deaths: " + currentData.deaths;
     }
 
+    void StartGettingHighScore(string text)
+    {
+        StartCoroutine(SQL_Connection.RankingRegister());
+        SQL_Connection.OnGetRankingRequestEnded += SetHighScore;
+    }
+
     void SetHighScore(string scoreText)
     {
         rankingData = new List<SessionData>();
         var newString = scoreText;
         var HighScoreStringArray = newString.Split('_');
-        Debug.Log(HighScoreStringArray.Length.ToString());
         for (int i = 0; i < HighScoreStringArray.Length-1; i++)
         {
             var scoreComponent = HighScoreStringArray[i].Split('-');
