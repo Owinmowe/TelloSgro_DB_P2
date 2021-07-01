@@ -64,4 +64,11 @@ public class UI_EndScene : MonoBehaviour
         LoaderManager.Get().LoadSceneAsync("Main Game");
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        SQL_Connection.OnGetRankingRequestEnded -= SetHighScore;
+        SQL_Connection.OnSendScoreRequestEnded -= StartGettingHighScore;
+    }
+
 }
