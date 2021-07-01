@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,13 @@ public class GameplayManager : MonoBehaviour
     Shape playerShape = null;
     List<EnemyController> enemiesControllers = new List<EnemyController>();
 
+    public Action<int> OnPlayerGotPoints;
+    public Action<int> OnPlayerSavedPoints;
+    public Action<int> OnPlayerDeath;
+    public Action<float> OnTimeUpdate;
+
     int savedScore = 0;
-    int unsavedScore = 0;
+    int unSavedScore = 0;
     int deaths = 0;
 
     private void Awake()
@@ -38,6 +44,7 @@ public class GameplayManager : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
+        OnTimeUpdate?.Invoke(currentTime);
     }
 
     IEnumerator EnemyWaves()
@@ -63,7 +70,7 @@ public class GameplayManager : MonoBehaviour
 
     private void CreateEnemy()
     {
-        int randomPosIndex = Random.Range(0, enemySpawnPositions.Count);
+        int randomPosIndex = UnityEngine.Random.Range(0, enemySpawnPositions.Count);
         GameObject EnemyGo = Instantiate(enemyPrefab, enemySpawnPositions[randomPosIndex].position, Quaternion.identity, enemySpawnPositions[randomPosIndex]);
         var enemyController = EnemyGo.GetComponent<EnemyController>();
         enemyController.OnPointsGiven += AddScore;
@@ -73,7 +80,9 @@ public class GameplayManager : MonoBehaviour
 
     void SaveScore()
     {
-        savedScore = unsavedScore;
+        savedScore += unSavedScore;
+        unSavedScore = 0;
+        OnPlayerSavedPoints?.Invoke(savedScore);
     }
 
     void PlayerRecievedDamage()
@@ -84,15 +93,17 @@ public class GameplayManager : MonoBehaviour
     void PlayerDied()
     {
         deaths++;
-        unsavedScore /= 2;
+        unSavedScore /= 2;
         foreach (var item in enemiesControllers)
         {
             item.StopFollowing();
         }
+        OnPlayerDeath?.Invoke(deaths);
     }
 
     void AddScore(int score)
     {
-        unsavedScore += score;
+        unSavedScore += score;
+        OnPlayerGotPoints?.Invoke(unSavedScore);
     }
 }

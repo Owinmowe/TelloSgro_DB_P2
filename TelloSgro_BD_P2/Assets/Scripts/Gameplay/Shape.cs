@@ -62,7 +62,7 @@ public class Shape : MonoBehaviour, Idamageable
             Destroy(gameObject, timeToDestroy);
             col.enabled = false;
             alive = false;
-            nav.SetDestination(transform.position);
+            nav.enabled = false;
         }
         else
         {
@@ -78,7 +78,7 @@ public class Shape : MonoBehaviour, Idamageable
         invulnerable = false;
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (invulnerable) return;
         Idamageable damageable = collision.collider.GetComponent<Idamageable>();
