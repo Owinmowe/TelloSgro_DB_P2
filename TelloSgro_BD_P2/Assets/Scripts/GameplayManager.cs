@@ -22,6 +22,7 @@ public class GameplayManager : MonoBehaviour
 
     int savedScore = 0;
     int unsavedScore = 0;
+    int deaths = 0;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class GameplayManager : MonoBehaviour
             currentTimeBetweenEnemies = currentTimeBetweenEnemies - timeReduceBetweenEnemies > 0 ? currentTimeBetweenEnemies - timeReduceBetweenEnemies : currentTimeBetweenEnemies;
             CreateEnemy();
         }
+        LoaderManager.Get().SetSessionData(LoaderManager.Get().GetSessionData().username, savedScore, deaths);
     }
 
     private void CreatePlayer()
@@ -81,7 +83,8 @@ public class GameplayManager : MonoBehaviour
 
     void PlayerDied()
     {
-        StopAllCoroutines();
+        deaths++;
+        unsavedScore /= 2;
         foreach (var item in enemiesControllers)
         {
             item.StopFollowing();

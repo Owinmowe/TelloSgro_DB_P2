@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1059557473}
   - component: {fileID: 1059557472}
   - component: {fileID: 1059557471}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CrashParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4820,7 +4820,7 @@ GameObject:
   - component: {fileID: 5918616605201537154}
   - component: {fileID: 590177321}
   - component: {fileID: 8519783150929620108}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5918616605201537155}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

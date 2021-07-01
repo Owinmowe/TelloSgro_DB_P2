@@ -40,16 +40,4 @@ public class Projectile : MonoBehaviour
             particles.gameObject.transform.forward = Vector3.Reflect(direction, collision.GetContact(0).normal);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Idamageable damageable = other.GetComponent<Idamageable>();
-        if (damageable != null)
-        {
-            damageable.TakeDamage();
-        }
-        rb.Sleep();
-        mr.enabled = false;
-        Destroy(gameObject, timeToDestroy);
-    }
 }
