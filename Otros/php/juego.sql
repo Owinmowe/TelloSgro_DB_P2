@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 01, 2021 at 06:56 AM
+-- Generation Time: Jul 01, 2021 at 07:16 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `parcial`
+-- Database: `juego`
 --
 
 -- --------------------------------------------------------
@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `score` (
   `score_ID` int(11) NOT NULL,
-  `score_name` int(30) NOT NULL,
-  `score_points` int(10) NOT NULL,
-  `score_death` int(3) NOT NULL
+  `score_name` int(11) NOT NULL,
+  `score_points` int(11) NOT NULL,
+  `score_death` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -48,13 +48,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_ID`, `user_name`, `user_password`) VALUES
-(1, 'admin', '1234');
-
---
 -- Indexes for dumped tables
 --
 
@@ -63,14 +56,13 @@ INSERT INTO `users` (`user_ID`, `user_name`, `user_password`) VALUES
 --
 ALTER TABLE `score`
   ADD PRIMARY KEY (`score_ID`),
-  ADD KEY `score_name` (`score_name`);
+  ADD KEY `index` (`score_name`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_ID`),
-  ADD UNIQUE KEY `user_name` (`user_name`);
+  ADD PRIMARY KEY (`user_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -80,23 +72,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
-  MODIFY `score_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `score_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `score`
---
-ALTER TABLE `score`
-  ADD CONSTRAINT `Users_ID` FOREIGN KEY (`score_name`) REFERENCES `users` (`user_ID`);
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
