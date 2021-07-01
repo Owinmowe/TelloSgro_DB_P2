@@ -7,11 +7,10 @@ using TMPro;
 static public class SQL_Connection
 {
 
-    static public Action OnLastRequestEnded;
-
-    static string handlerText = "";
-
-    static public string GetHandlerText() => handlerText;
+    static public Action<string> OnLoginRequestEnded;
+    static public Action<string> OnSignUpRequestEnded;
+    static public Action<string> OnSendScoreRequestEnded;
+    static public Action<string> OnGetRankingRequestEnded;
 
     public static IEnumerator LoginRegister(string username, string password, TextMeshProUGUI errorText)
     {
@@ -35,9 +34,7 @@ static public class SQL_Connection
             errorText.color = Color.red;
             errorText.text = "Can't login with current username/password.";
         }
-
-        handlerText = www.downloadHandler.text;
-        OnLastRequestEnded?.Invoke();
+        OnLoginRequestEnded?.Invoke(www.downloadHandler.text);
     }
 
     public static IEnumerator SignUpRegister(string username, string password, TextMeshProUGUI errorText)
@@ -61,9 +58,7 @@ static public class SQL_Connection
             errorText.color = Color.red;
             errorText.text = "Can't sign up current username/password.";
         }
-
-        handlerText = www.downloadHandler.text;
-        OnLastRequestEnded?.Invoke();
+        OnSignUpRequestEnded?.Invoke(www.downloadHandler.text);
     }
 
     public static IEnumerator SendScoreRegister()
@@ -79,8 +74,7 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
 
-        handlerText = www.downloadHandler.text;
-        OnLastRequestEnded?.Invoke();
+        OnSendScoreRequestEnded?.Invoke(www.downloadHandler.text);
     }
 
     public static IEnumerator RankingRegister()
@@ -91,8 +85,7 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
 
-        handlerText = www.downloadHandler.text;
-        OnLastRequestEnded?.Invoke();
+        OnGetRankingRequestEnded?.Invoke(www.downloadHandler.text);
     }
 
 }
