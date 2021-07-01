@@ -5,6 +5,7 @@ using TMPro;
 
 static public class SQL_Connection
 {
+
     public static IEnumerator LoginRegister(string username, string password, TextMeshProUGUI errorText)
     {
         WWWForm form = new WWWForm();
@@ -17,8 +18,8 @@ static public class SQL_Connection
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            errorText.color = new Color(0, 0, 0, 0);
-            LoaderManager.Get().LoadSceneAsync("Main Game");
+            errorText.color = Color.green;
+            errorText.text = "login in with the current username/password.";
         }
         else
         {

@@ -52,6 +52,7 @@ public class UI_MainMenu : MonoBehaviour
     public void CallLoginRegister()
     {
         StartCoroutine(SQL_Connection.LoginRegister(usernameText.text, passwordText.text, errorText));
+        if(SQL_Connection.IsLoginCorrect()) LoaderManager.Get().LoadSceneAsync("Main Game");
     }
 
     public void CallSignUpRegister()
