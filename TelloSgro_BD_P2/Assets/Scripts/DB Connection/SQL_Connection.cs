@@ -74,7 +74,6 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
         yield return new WaitForSeconds(2);
-        Debug.Log("El puntaje is subido");
         
         OnSendScoreRequestEnded?.Invoke(www.downloadHandler.text);
     }
@@ -86,8 +85,6 @@ static public class SQL_Connection
         UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/Score Ranking.php", form);
 
         yield return www.SendWebRequest();
-
-        Debug.Log("El ranking is cargado");
 
         OnGetRankingRequestEnded?.Invoke(www.downloadHandler.text);
     }
