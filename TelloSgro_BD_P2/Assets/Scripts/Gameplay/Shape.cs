@@ -79,7 +79,7 @@ public class Shape : MonoBehaviour, Idamageable
 
     public void TakeDamage()
     {
-        if (invulnerable) return;
+        if (invulnerable || !alive) return;
         currentLife--;
         anim.SetTrigger("Take Damage");
         if (currentLife <= 0)

@@ -163,8 +163,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5918616605201537155, guid: e687bc21bd5b3b1439e778dbeeef9d91,
     type: 3}
   bulletSpawnPoint: {fileID: 1650888827}
-  launchSpeed: 40
-  cooldown: 1
+  launchSpeed: 35
+  cooldown: 0.45
 --- !u!195 &7963661842020301217
 NavMeshAgent:
   m_ObjectHideFlags: 0

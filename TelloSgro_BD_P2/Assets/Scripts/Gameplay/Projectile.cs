@@ -10,12 +10,14 @@ public class Projectile : MonoBehaviour
 
     Rigidbody rb;
     MeshRenderer mr;
+    Collider col;
     Vector3 direction = Vector3.zero;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
+        col = GetComponent<Collider>();
     }
 
     public void Launch(Vector3 dir, float vel)
@@ -32,6 +34,7 @@ public class Projectile : MonoBehaviour
             damageable.TakeDamage();
         }
         rb.Sleep();
+        col.enabled = false;
         mr.enabled = false;
         Destroy(gameObject, timeToDestroy);
         if (particles != null)
