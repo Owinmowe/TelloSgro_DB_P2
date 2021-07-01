@@ -6,6 +6,10 @@ using TMPro;
 static public class SQL_Connection
 {
 
+    static string handlerText = "";
+
+    static public string GetHandlerText() => handlerText;
+
     public static IEnumerator LoginRegister(string username, string password, TextMeshProUGUI errorText)
     {
         WWWForm form = new WWWForm();
@@ -27,7 +31,8 @@ static public class SQL_Connection
             errorText.color = Color.red;
             errorText.text = "Can't login with current username/password.";
         }
-        Debug.Log(www.downloadHandler.text);
+
+        handlerText = www.downloadHandler.text;
     }
 
     public static IEnumerator SignUpRegister(string username, string password, TextMeshProUGUI errorText)
@@ -51,6 +56,8 @@ static public class SQL_Connection
             errorText.color = Color.red;
             errorText.text = "Can't sign up current username/password.";
         }
+
+        handlerText = www.downloadHandler.text;
     }
 
     public static IEnumerator SendScoreRegister()
@@ -65,9 +72,11 @@ static public class SQL_Connection
         UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/Score Insert.php", form);
 
         yield return www.SendWebRequest();
+
+        handlerText = www.downloadHandler.text;
     }
 
-    public static IEnumerator RankingRegister(string handlerText)
+    public static IEnumerator RankingRegister()
     {
         WWWForm form = new WWWForm();
 
