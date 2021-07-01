@@ -1,0 +1,49 @@
+using System.Collections;
+using UnityEngine.Networking;
+using UnityEngine;
+using TMPro;
+
+static public class SQL_Connection
+{
+    public static IEnumerator LoginRegister(string username, string password, TextMeshProUGUI errorText)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+        form.AddField("password", password);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Read.php", form);
+
+        yield return www.SendWebRequest();
+
+        if (!(www.result == UnityWebRequest.Result.Success))
+        {
+            errorText.color = Color.red;
+            errorText.text = "Can't login with current username/password.";
+        }
+        else
+        {
+            errorText.color = new Color(0, 0, 0, 0);
+        }
+    }
+
+    public static IEnumerator SignUpRegister(string username, string password, TextMeshProUGUI errorText)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+        form.AddField("password", password);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Read.php", form);
+
+        yield return www.SendWebRequest();
+
+        if (!(www.result == UnityWebRequest.Result.Success))
+        {
+            errorText.color = Color.red;
+            errorText.text = "Can't sign up current username/password.";
+        }
+        else
+        {
+            errorText.color = new Color(0, 0, 0, 0);
+        }
+    }
+}
