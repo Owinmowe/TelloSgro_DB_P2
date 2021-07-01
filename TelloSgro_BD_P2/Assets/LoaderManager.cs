@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SessionData
 {
-    public int score;
-    public int deaths;
-    public string username;
+    public int score = 0;
+    public int deaths = 0;
+    public string username = "Name";
 }
 
 public class LoaderManager : MonoBehaviour
@@ -14,7 +14,7 @@ public class LoaderManager : MonoBehaviour
 
     private static LoaderManager instance = null;
 
-    SessionData currentSessionData;
+    SessionData currentSessionData = null;
 
     static public LoaderManager Get()
     {

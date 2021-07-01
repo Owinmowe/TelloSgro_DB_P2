@@ -7,7 +7,7 @@ public class SavePoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerInput>()) OnPlayerCollided?.Invoke();
+        OnPlayerCollided?.Invoke();
     }
 
 }
