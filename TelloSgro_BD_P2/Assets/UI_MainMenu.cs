@@ -51,11 +51,13 @@ public class UI_MainMenu : MonoBehaviour
 
     public void CallLoginRegister()
     {
+        StopAllCoroutines();
         StartCoroutine(SQL_Connection.LoginRegister(usernameText.text, passwordText.text, errorText));
     }
 
     public void CallSignUpRegister()
     {
+        StopAllCoroutines();
         StartCoroutine(SQL_Connection.SignUpRegister(usernameText.text, passwordText.text, errorText));
     }
 

@@ -16,7 +16,7 @@ static public class SQL_Connection
 
         yield return www.SendWebRequest();
 
-        if (www.result == UnityWebRequest.Result.Success)
+        if (www.result == UnityWebRequest.Result.Success && www.downloadHandler.text[0] != '*')
         {
             errorText.color = Color.green;
             errorText.text = "Logged In. Have Fun!";
@@ -27,6 +27,7 @@ static public class SQL_Connection
             errorText.color = Color.red;
             errorText.text = "Can't login with current username/password.";
         }
+        Debug.Log(www.downloadHandler.text);
     }
 
     public static IEnumerator SignUpRegister(string username, string password, TextMeshProUGUI errorText)
@@ -35,11 +36,11 @@ static public class SQL_Connection
         form.AddField("username", username);
         form.AddField("password", password);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Read.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/shooter/User Create.php", form);
 
         yield return www.SendWebRequest();
 
-        if (www.result == UnityWebRequest.Result.Success)
+        if (www.result == UnityWebRequest.Result.Success && www.downloadHandler.text[0] != '*')
         {
             errorText.color = Color.green;
             errorText.text = "Username created correctly.";
