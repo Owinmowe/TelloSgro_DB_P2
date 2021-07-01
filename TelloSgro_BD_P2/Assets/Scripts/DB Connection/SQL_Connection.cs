@@ -23,6 +23,7 @@ static public class SQL_Connection
         else
         {
             errorText.color = new Color(0, 0, 0, 0);
+            LoaderManager.Get().LoadSceneAsync("Main Game");
         }
     }
 
@@ -43,7 +44,8 @@ static public class SQL_Connection
         }
         else
         {
-            errorText.color = new Color(0, 0, 0, 0);
+            errorText.color = Color.green;
+            errorText.text = "Username created correctly.";
         }
     }
 }

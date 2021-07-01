@@ -12,7 +12,6 @@ public class UI_MainMenu : MonoBehaviour
 
     [Header("Log In/Sign Up")]
     [SerializeField] List<UI_Component> LogIn_HUD = null;
-    [SerializeField] List<GameObject> inputFields = null;
     [SerializeField] TextMeshProUGUI usernameText = null;
     [SerializeField] TextMeshProUGUI passwordText = null;
     [SerializeField] TextMeshProUGUI errorText = null;
@@ -58,11 +57,6 @@ public class UI_MainMenu : MonoBehaviour
     public void CallSignUpRegister()
     {
         StartCoroutine(SQL_Connection.SignUpRegister(usernameText.text, passwordText.text, errorText));
-    }
-
-    public void PlayGame()
-    {
-        
     }
 
     public void QuitGame()
