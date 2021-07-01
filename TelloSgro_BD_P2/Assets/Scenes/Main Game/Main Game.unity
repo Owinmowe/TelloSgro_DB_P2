@@ -4149,7 +4149,7 @@ MonoBehaviour:
     type: 3}
   savePoint: {fileID: 1885945200}
   gameTime: 120
-  timeBetweenEnemies: 4.6
+  timeBetweenEnemies: 5.8
   timeReduceBetweenEnemies: 0.6
   enemySpawnPositions:
   - {fileID: 1258852904}
